@@ -32,7 +32,7 @@ public class BaseRepository<T> {
     }
 
     protected long getNextId(String sequenceName) {
-        return jdbc.queryForObject("select nextval('?')", new Object[]{sequenceName}, Long.class);
+        return jdbc.queryForObject("select nextval(?)", Long.class, sequenceName);
     }
 
 }

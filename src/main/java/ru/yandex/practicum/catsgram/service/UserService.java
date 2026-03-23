@@ -41,7 +41,7 @@ public class UserService {
         if (request.getEmail() == null || request.getEmail().isBlank()) {
             throw new ConditionsNotMetException("Имейл должен быть указан");
         }
-        if (userRepository.findByEmail(request.getEmail()).isEmpty()) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new DuplicatedDataException("Этот имейл уже используется");
         }
 
