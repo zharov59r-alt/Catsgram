@@ -1,0 +1,36 @@
+
+drop table if exists public.post_image;
+drop sequence if exists public.s_post_image_id;
+drop table if exists public.post;
+drop sequence if exists public.s_post_id;
+drop table if exists public.user;
+drop sequence if exists public.s_user_id;
+
+create sequence public.s_user_id;
+create sequence public.s_post_image_id;
+create sequence public.s_post_id;
+
+create table public.user (
+    id                  bigint primary key,
+    username            text,
+    email               text,
+    password            text,
+    registration_date   timestamp with time zone not null
+);
+
+insert into public.user
+select nextval('public.s_user_id'), 'q', 'w', 'e', current_timestamp;
+
+create table public.post (
+    id          bigint  primary key,
+    user_id     bigint not null references public.user(id),
+    description text,
+    post_date   timestamp with time zone not null
+);
+
+create table if not exists public.post_image (
+    id                  bigint  primary key,
+    original_file_name  text,
+    file_path           text,
+    post_id             bigint not null references public.post(id)
+);
