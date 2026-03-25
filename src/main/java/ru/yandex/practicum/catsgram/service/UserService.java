@@ -46,11 +46,8 @@ public class UserService {
         }
 
         User user = UserMapper.toUser(request);
-
         user.setRegistrationDate(Instant.now());
-
         user = userRepository.save(user);
-
         return UserMapper.toUserDto(user);
     }
 
